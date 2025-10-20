@@ -1,17 +1,19 @@
 doctype html
-html(lang="es")
+html(lang='es',otro="pop")
   head
-    meta(charset="UTF-8")
-    title Mi Página
+    meta(charset='UTF-8')
+    -var hola = "hola a todos"
+    title #{hola}
   body
     div#main.container
+      // Esto es un comentario
       h1.titulo Bienvenido
       p Este es un párrafo de ejemplo
       div.card
         h2 Subtítulo
         p.description Descripción del contenido
         ul
-          li Elemento 1
+          li(data-main='activate') Elemento 1
           li Elemento 2
           li Elemento 3
     footer#pie.footer
