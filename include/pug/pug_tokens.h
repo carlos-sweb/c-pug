@@ -11,7 +11,7 @@ extern "C" {
 // ============================================================================
 // ENUMERACIONES PARA TIPOS DE TOKENS
 // ============================================================================
-typedef enum :int{
+typedef enum{
     TOKEN_TAG = 0,          // div, p, span, etc.
     TOKEN_CLASS,           // .container, .menu
     TOKEN_ID,              // #main, #header
@@ -33,7 +33,7 @@ typedef enum :int{
     TOKEN_COUNT          // Contador total de tokens (no es un token real)
 } TokenType;
 
-typedef enum :int{
+typedef enum{
     ATTR_STRING,    // name="value"
     ATTR_BOOLEAN,   // disabled, checked
     ATTR_EXPRESSION,// data-id=variable

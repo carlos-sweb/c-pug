@@ -68,15 +68,13 @@ static inline Token* create_token(TokenType type, const gchar *value, unsigned i
 // ============================================================================
 
 static inline void tokenize_line(TokenList *token_list, const gchar *line, unsigned int line_number) {
-    // Contar indentación
+    
     unsigned int indent_level = count_indent_level(line);
     unsigned int pos = skip_whitespace(line, 0);
     unsigned int column = pos;
     
     // Línea vacía o solo espacios
-    if (line[pos] == '\0') {
-        return;
-    }
+    if (line[pos] == '\0') {return;}
     
     // Detectar DOCTYPE
     if (g_str_has_prefix(&line[pos], "doctype")) {
@@ -203,23 +201,26 @@ static inline void tokenize_line(TokenList *token_list, const gchar *line, unsig
     
     // Procesar resto de la línea (tags, clases, ids, atributos, texto con interpolaciones)
     GString *buffer = g_string_new("");
-    
-    while (line[pos] != '\0') {
-        gchar c = line[pos];
         
+    printf("linea::%s\n",line);    
+
+    while (line[pos] != '\0') {
+        gchar c = line[pos];        
         // Detectar ID (#)
         if (c == '#') {
+            
             pos++;
             column = pos;
             g_string_truncate(buffer, 0);
-            
+
             while (isalnum(line[pos]) || line[pos] == '-' || line[pos] == '_') {
                 g_string_append_c(buffer, line[pos]);
                 pos++;
             }
-            
+
             Token *token = create_token(TOKEN_ID, buffer->str, indent_level, line_number, column);
             token_list_add(token_list, token);
+            
         }
         // Detectar CLASS o DOT (.)
         else if (c == '.') {
